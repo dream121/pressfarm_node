@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  - function truncate(value, arg){var value_arr = value.split(' ');if( arg < value_arr.length ){value = value_arr.slice( 0, arg ).join(' ');}return value;}
+  .bg-black 
+        #fullpage
+          if posts
+          each post,index in posts
+            div(id='section#{index}' class='section')
+              .wrap
+                header.entry-header
+                  h3.entry-title(itemprop='headline')
+                    a(href='#') #{post.title}                    
+                .entry-content(itemprop='text')
+                  if post.thumbnail.link
+                    img(src="#{post.thumbnail.link}" style="height:100px;width:100px;margin-top:20px")
+                  p !{truncate(post.content, 20)}
+                  footer1.entry-footer
+                    a.readmore.button(href='#{post.link}', target='_blank') Read More
+  link(rel='stylesheet', type='text/css', href='../public/css/jquery.fullPage.css')
+  link(rel='stylesheet', type='text/css', href='../public/css/examples.css')
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+  script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js')
+  script(type='text/javascript', src='../public/js/jquery.fullPage.js')
+  script(type='text/javascript').
+    jQuery(document).ready(function($) {
+      $('#fullpage').fullpage({sectionsColor: ['#000000', '#4BBFC3', '#7BAABE', '#000000', '#ccddff']});
+      $("#layout").removeClass('container');
+    });
+    
+ 
+          
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            

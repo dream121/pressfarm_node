@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+
+  .page-header
+    h3 Browse Journalists
+  .row
+    each reporter in reporters
+      .reporter.col-md-6
+        .picture.inline
+          img(src='#{reporter.gravatar(100)}', class='img-rounded')
+        .details.inline
+          p.name
+            a(href='#{reporter.url}' target="_blank") #{reporter.name}
+          p.publication
+            | #{reporter.publication}
+          p.email
+            if subscribed
+              a(href='mailto:#{reporter.email}') #{reporter.email}
+            else
+              a(href='#', class='pay') View Email
+          p.twitter
+            a(href='https://twitter.com/#{reporter.twitter}') @#{reporter.twitter}

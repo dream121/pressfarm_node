@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  #import_reporters.page-header
+    h3 Enter option you need to add
+    div
+      form(action='/addoptions' method='post')
+        div(data-role='fieldcontain')
+          fieldset(data-role='controlgroup')
+            .form-group
+              label(for='name' style='margin-top:10px;') Name
+              input(type="text",placeholder="Enter option's name",name="name",style="margin-top:10px;padding:10px;")
+            .form-group
+              label(for='name' style='margin-top:10px;') Value
+              input(type="text",placeholder="Enter option's value",name="value",style="margin-top:10px;padding:10px;")  
+            .form-group
+              button.btn.btn-primary(type='submit')
+                span.ion-android-settings
+                | Save option
+  

@@ -1,0 +1,30 @@
+/** @MSS
+ *  Integrated wordpressblog controller **/
+var blog = require( "wordpress" );
+
+/** define client object **/
+var client = blog.createClient({
+    /**@MSS
+     *remote wordpress installation link and access details **/
+    url: "http://192.168.0.182/wordpress/",
+    username: "admin",
+    password: "admin"
+});
+
+/**@MSS
+ *blog main controller fetch all blog posts **/ 
+exports.index = function(req, res) {
+    /**@MSS
+     *client object fetching all posts and return to blog view **/
+    client.getPosts(function( error, posts ) {
+        console.log( "Found " + posts.length + " posts!" );
+        console.log(posts);
+        if ( posts && !error ) {
+            res.render('blog',{
+                title:'Blog',
+                posts:posts            
+            });
+        }
+    });
+};
+

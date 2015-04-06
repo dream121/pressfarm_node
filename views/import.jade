@@ -1,0 +1,88 @@
+extends layout
+
+block content
+  #import_reporters.page-header
+    h3 Efficient Import Contacts
+    div
+      form(action='/upload' enctype='multipart/form-data' method='post' id='uploadForm')
+        div(data-role='fieldcontain')
+          fieldset(data-role='controlgroup')
+            .form-group
+              label(for='email' style='margin-top:20px;') Select Your file
+              input(type='file',class='btn btn-default btn-file',value='',placeholder='Choose file e.g CSV',name='contacts',style='margin-top:20px;')
+            .form-group
+              button.btn.btn-primary(type='submit')
+                span.ion-android-settings
+                | Import Contacts in Bulk
+  form(action='/deletereporters' method='post')
+    button.btn.btn-primary.deletebtn(type='submit')
+      span.ion-trash-a  Trash
+    input#search(type='text' class='form-control search' placeholder='Search')
+    div.deleteall
+      label Remove All Reporters
+      input(type='checkbox' onclick="toggle(this)" class="deleteall")  
+    h3 Remove Reporters
+    table#tblData.table.table-top
+      tr
+        th Name
+        |       
+        th Email
+        |       
+        th Publications
+        |       
+        th Twitter
+        |       
+        th URL
+        th Select
+      if reporters  
+        each reporter in reporters  
+          tr
+            td #{reporter.name}
+            td #{reporter.email}
+            td #{reporter.publication}
+            td #{reporter.twitter}
+            td #{reporter.url}
+            td
+              input(type='checkbox',name='#{reporter._id}' class='foo')
+  script(src='../public/js/jquery.min.js')
+  script.
+    function toggle(source) {
+      checkboxes = document.getElementsByClassName('foo');
+      for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+      }
+      }
+  script.
+    $(document).ready(function()
+      {
+      $('#search').keyup(function()
+      {
+      searchTable($(this).val());
+      });
+      });
+      function searchTable(inputVal)
+      {
+      var table = $('#tblData');
+      table.find('tr').each(function(index, row)
+      {
+      var allCells = $(row).find('td');
+      if(allCells.length > 0)
+      {
+      var found = false;
+      allCells.each(function(index, td)
+      {
+      var regExp = new RegExp(inputVal, 'i');
+      if(regExp.test($(td).text()))
+      {
+      found = true;
+      return false;
+      }
+      });
+      if(found == true)$(row).show();else $(row).hide();
+      }
+      });
+      }
+
+      
+
+  

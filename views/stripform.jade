@@ -1,0 +1,21 @@
+#stripe-form
+    form#payment-form(action='/strippost', method='POST')
+        .form-row
+          .cc-text Card Number  
+          input.card-number(type='text', size='30', autocomplete='off')  
+        .form-row
+          .cc-text CVC     
+          input.card-cvc(type='text', size='4', autocomplete='off')  
+        .form-row
+          .cc-text Expiration (MM/YYYY)      
+          input.card-expiry-month(type='text', size='2')      
+          span  /      
+          input.card-expiry-year(type='text', size='4')
+        input#cc-amount(type='hidden', name='amount', value='2000') 
+        button.submit-button(type='submit') Submit Payment
+    #error.hidden
+    #success.hidden Thanks for signing up at Browserling
+script(type='text/javascript', src='https://js.stripe.com/v1/')
+script(type='text/javascript', src='http://code.jquery.com/jquery-1.9.1.js')
+script(type='text/javascript', src='../public/js/stripefm.js')
+

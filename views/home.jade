@@ -1,0 +1,100 @@
+extends layout
+
+block content
+  .bg
+  .row.center.top
+    h1 Find journalists to write about your startup.
+    p.lead We'll give you their twitter and bio for free (get all #{count} emails for just $9).
+    if user
+      a.btn.btn-default.btn-primary.upcase.buy(href='/reporters', role='button') Browse journalists
+    else
+      a.btn.btn-default.btn-primary.upcase.buy(href='/signup', role='button') Sign up for free
+    img(src='/img/demo.png', id='demo', class='demo')
+  .row.logo_row
+    h2 Search Journalists from over 50 Popular Startup Publications
+    .col-md-12.center.sell
+       ul
+          li
+            a(href='#', data-toggle='tooltip', data-placement='top', title='BetaBeat')
+              img.bottom(src='img/betabeat.jpg', alt='betabeat.com')
+              img.top(src='img/betabeat_grey.jpg', alt='betabeat.com')
+          | &#x9;
+          li
+            a(href='#', data-toggle='tooltip', data-placement='top', title='BusinessInisder')
+              img.bottom(src='img/bi.jpg', alt='businessinisder.com')
+              img.top(src='img/bi_grey.jpg', alt='businessinisder_grey.com')
+          | &#x9;
+          li
+            a(href='#', data-toggle='tooltip', data-placement='top', title='GeekWire')
+              img.bottom(src='img/gw.jpg', alt='geekwire.com')
+              img.top(src='img/gw_grey.jpg', alt='geekwire.com')
+          | &#x9;
+          li
+            a(href='#', data-toggle='tooltip', data-placement='top', title='PandoDaily')
+              img.bottom(src='img/pandodaily.jpg', alt='pandodaily.com')
+              img.top(src='img/pandodaily_grey.jpg', alt='pandodaily.com')
+          | &#x9;
+          li
+            a(href='#', data-toggle='tooltip', data-placement='top', title='VentureBeat')
+              img.bottom(src='img/venturebeat.jpg', alt='venturebeat.com')
+              img.top(src='img/venturebeat_grey.jpg', alt='venturebeat.com')
+          | &#x9;
+  .clearfix
+  .row.bottom
+    .col-md-3.center.sell
+      p
+        span.ion-unlocked
+      h3
+        | Unlock the emails for #{count} journalists
+    .col-md-3.center.sell
+      p
+        span.ion-search
+      h3
+        | Save yourself hours of searching.
+    .col-md-3.center.sell
+      p
+        span.ion-card
+      h3
+        | No subscription. No automatic renewal.
+    .col-md-3.center.sell
+      p
+        span.ion-email
+      h3
+        | Subscribe now for news and PR tips for startups.
+        #mc_embed_signup
+          form#mc-embedded-subscribe-form.validate(action='//farm.us9.list-manage.com/subscribe/post?u=7b3408db751c4c29b6c836077&amp;id=d9e00624db', method='post', name='mc-embedded-subscribe-form', target='_blank', novalidate='')
+              #mc_embed_signup_scroll
+                #mce-responses.col-md-12(style="margin:0px; padding:0px;")
+                  #mce-error-response.response(style='display:none')
+                  | &#x9;&#x9;
+                  #mce-success-response(style='display:none')
+                  // real people should not fill this in and expect good things - do not remove this or risk form bot signups
+                .mc-field-group(style='width:100%')
+                  input#mce-EMAIL.required.email.form-control(type='email', value='', name='EMAIL', placeholder="Email")
+                | &#x9;
+                div(style='position: absolute; left: -5000px;')
+                  input(type='text', name='b_1898bad7ebe0817d014881bd2_7b3d678098', tabindex='-1', value='')
+                |     
+                .clear
+                  input(type='submit', id="mailchimp_btn_subscribe" class='form-control btn btn-default btn-primary upcase buy' value='Subscribe', name='Subscribe' style="background:none repeat scroll 0 0 #428ee5;color:#fff;")
+
+  .row.posts
+    if posts
+      each post,index in posts
+        div(id='blog-#{index}' class='col-md-3 center sell')
+          a(href='#{post.link}', target='_blank')
+            if post.thumbnail.link
+              img(src="#{post.thumbnail.link}" style="width:100%;")
+            else
+              img(src="img/no-image.jpg" style="width:100%;")
+            div.blog-title #{post.title}
+
+  script(type='text/javascript', src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js')
+    script(type='text/javascript').
+      (function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);
+
+  .clearfix
+  script.
+      $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+      })

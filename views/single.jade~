@@ -1,0 +1,37 @@
+extends layout
+
+block content
+
+  .page-header
+    h3 Blog
+  .blog.col-md-9  
+    .row
+      if singleposts
+	 .blog
+	   .picture.inline.col-md-3
+	     img(src='#', class='img-rounded')
+	   .details.inline.col-md-9
+	     p.name
+		a(href='blog/post/#{singleposts.id}') #{singleposts.title}
+		p.content #{singleposts.content}     
+	      
+  block blogSidebar
+    .blogSidebar.col-md-3.row    
+      ul.list-unstyled.check-style
+        p Latest Posts
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">How does encryption work?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Is Unify Template legal?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Can I download Unify multiple times?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">How to Update Unify Template?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">How does encryption work?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Is Unify Template legal?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Can I download Unify multiple times?</a></li>
+      ul.list-unstyled.check-style
+        p Archives
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">How does encryption work?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Is Unify Template legal?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Can I download Unify multiple times?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">How to Update Unify Template?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">How does encryption work?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Is Unify Template legal?</a></li>
+        <li><i class="fa fa-angle-right color-green"></i> <a href="#">Can I download Unify multiple times?</a></li>  

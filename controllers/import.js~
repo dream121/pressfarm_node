@@ -1,0 +1,132 @@
+ var mongoose    = require('mongoose');
+var bcrypt      = require('bcrypt-nodejs');
+var crypto      = require('crypto');
+var nodemailer = require('nodemailer');
+var Reporter  = require('../models/Reporter');
+var secrets = require('../config/secrets');
+var fs          = require('fs');
+var collections = ["reporters"];
+var validator = require('node-validator');
+var validator = require('validator');
+
+exports.index=function(req,res){
+        res.render('import', {
+        title: 'import'     
+    });
+}
+exports.importer = function(req, res) {
+    //var mongoose = require('mongoose');
+    console.log("in contacts importer");
+    console.log(req.files.contacts);
+    
+    var add1 = [];
+    if (req.files.contacts) {
+    var lineList = fs.readFileSync('uploads/'+req.files.contacts.name).toString().split('\n');
+    console.log("length",lineList);
+    console.log("length",lineList.length);
+    var s=1;
+            if (lineList.length){
+                console.log("hdfiufhd",lineList[0].length);
+                for ( var j=0; j<s;j++) {
+                    var line = lineList.shift();
+                    line.split(',').forEach(function (entry, i) {
+                        add1[i] = entry.replace(/"/g, "");
+                        console.log("field",add1[i]);
+                    });
+                    console.log("length ",add1.length);
+                    
+                   
+                    if (add1.length > 3 && add1[0] == "name" && add1[1] == "email" && add1[2] == "publication" && add1[3] == "twitter" && add1[4] == "url") {
+                        console.log("insert ");
+        //lineList.shift(); // Shift the headings off the list of records.
+    console.log(lineList);
+    lineList.pop();
+ // Shift the headings off the list of records.
+        var add = [];
+       
+        function createDocRecurse() {
+            //console.log("inside loop");
+            //console.log(lineList.length);
+            //console.log(lineList);
+	    var s=lineList.length;
+            console.log("lineList.length",lineList.length);
+            if (lineList.length){
+
+                for ( var j=0; j<s;j++) {
+                    var line = lineList.shift();
+                    line.split(',').forEach(function (entry, i) {
+                        add[i] = entry.replace(/"/g, "");  
+                    });
+                    console.log(add[0]);
+                    var registration = new Reporter({'name':add[0],'email':add[1], 'publication':add[2],'twitter':add[3],'url':add[4]});
+                    
+                    console.log("registration",registration);
+                    if (validator.isEmail(add[1])) {
+                        console.log("valid email");
+                        registration.save(function(err,res){
+				if(err)
+				{
+				 console.log("not saved",err);	
+				}else
+				{
+				 console.log("saved",res);
+				}
+			});
+		
+                        mail(add[1]);
+                    }
+                    else{
+                        console.log("email is incorrect");
+                    }
+                }
+            }
+    }
+    req.flash('success', { msg: 'Contacts Added Successfully to Pressman and a mail has been sent with Username and password to them' });
+    createDocRecurse();
+    }
+     else{
+                console.log("not inserted");
+                req.flash('errors', { msg: 'Csv file not in proper format according to database schema' });
+        }
+    }
+    }
+      
+    function mail(email){
+	
+	//console.log(email);
+		//console.log(pass);
+    var smtpTransport = nodemailer.createTransport('SMTP', {
+        service: 'Mailgun',
+	  auth: {
+          user: secrets.mailgun.user,
+          pass: secrets.mailgun.password
+        }
+      });
+      var mailOptions = {
+        to: email,
+        from: 'contact@press.farm',
+        subject: 'Successfully Registered',
+        text: 'You are Successfully registered as reporters into pressfarm.\n'+
+	"Please Login to  http://" + req.headers.host + "/reporters \n\n"+
+	'Thanks for registering with us'
+		
+		        
+      };
+      smtpTransport.sendMail(mailOptions, function(error, info){
+    if(error){
+        console.log(error);
+    }else{
+        console.log('Message sent: ' + info.response);
+    }
+});
+    }
+    //req.flash('success', { msg: 'Contacts Added Successfully to Pressman and a mail has been sent with Username and password to them' });
+    res.render('import');
+    
+    }
+    else{
+	console.log('no file');
+	req.flash('errors', { msg: 'Please select csv file.' });
+	res.render('import');
+    }
+};

@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  #import_reporters.page-header
+    h3 Efficient Import Contacts
+    div
+      form(action='/upload' enctype='multipart/form-data' method='post' id='uploadForm')
+        div(data-role='fieldcontain')
+          fieldset(data-role='controlgroup')
+            .form-group
+              label(for='email' style='margin-top:20px;') Select Your file
+              input(type='file',class='btn btn-default btn-file',value='',placeholder='Choose file e.g CSV',name='contacts',style='margin-top:20px;')
+            .form-group
+              button.btn.btn-primary(type='submit')
+                span.ion-android-settings
+                | Import Contacts in Bulk
+  form(action='/deletereporters' method='post')              
+    button.btn.btn-primary.deletebtn(type='submit')
+      span.ion-trash-a  Trash
+    h3 Remove Reporters
+    table.table.table-top
+      tr
+        th Name
+        |       
+        th Email
+        |       
+        th Publications
+        |       
+        th Twitter
+        |       
+        th URL
+        th Select
+      each reporter in reporters  
+        tr
+        x  td #{reporter.name}
+          td #{reporter.email}
+          td #{reporter.publication}
+          td #{reporter.twitter}
+          td #{reporter.url}
+          td
+            input(type='checkbox',name='#{reporter._id}')
+      
+
+  

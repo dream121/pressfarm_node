@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  .row.center.top
+    a.btn.btn-default.btn-primary(href='/import/add', role='button') Import
+   
+   

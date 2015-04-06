@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 Add Reporter
+
+  form.form-horizontal(action='/reporters', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-2.control-label(for='name') Name
+      .col-sm-4
+        input.form-control(type='text', name='name', id='name', value=name)
+    .form-group
+      label.col-sm-2.control-label(for='email') Email
+      .col-sm-4
+        input.form-control(type='email', name='email', id='email', value=email)
+    .form-group
+      label.col-sm-2.control-label(for='email') Publication
+      .col-sm-4
+        input.form-control(type='text', name='publication', id='publication', value=publication)
+    .form-group
+      label.col-sm-2.control-label(for='email') URL
+      .col-sm-4
+        input.form-control(type='text', name='url', id='url', value=url)
+    .form-group
+      label.col-sm-2.control-label(for='email') Twitter
+      .col-sm-4
+        input.form-control(type='text', name='twitter', id='twitter', value=twitter)
+    .form-group
+      .col-sm-offset-2.col-sm-4
+        button.btn.btn.btn-primary(type='submit')
+          span.ion-edit
+          | Save
